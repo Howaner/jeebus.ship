@@ -18,7 +18,6 @@ import org.openmuc.jeebus.ship.node.service.ServiceRegistry;
 import org.openmuc.jeebus.ship.node.websocket.WebSocketHandler;
 import org.openmuc.jeebus.ship.node.websocket.client.ShipClient;
 import org.openmuc.jeebus.ship.node.websocket.server.ShipServer;
-import org.openmuc.jeebus.ship.node.websocket.server.ShipServerHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +29,8 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.openmuc.jeebus.ship.api.ShipConnectionInfoSnapshot.ConnectionTypeEnum.CLIENT_CONNECTION_TO_PEER;
+import static org.openmuc.jeebus.ship.api.ShipConnectionInfoSnapshot.ConnectionTypeEnum.PEER_CONNECTED_TO_SERVER;
 import static org.openmuc.jeebus.ship.node.ShipNodeParameters.USER_VERIFIED_TRUST_LEVEL;
 
 public class ShipNodeImpl {
@@ -332,21 +333,15 @@ public class ShipNodeImpl {
     }
 
     public List<ShipConnectionInfoSnapshot> getConnectionInfos() {
-        List<ShipConnectionInfoSnapshot> infos = new ArrayList<>();
+        return Stream.concat(
+                this.server.stream()
+                        .flatMap(s -> s.getHandlers().stream())
+                        .map(h -> this.createConnectionInfoSnapshot(h, PEER_CONNECTED_TO_SERVER)),
 
-        this.server.ifPresent(server -> {
-            for (ShipServerHandler handler : server.getHandlers()) {
-                infos.add(this.createConnectionInfoSnapshot(handler, ShipConnectionInfoSnapshot.ConnectionTypeEnum.PEER_CONNECTED_TO_SERVER));
-            }
-        });
-
-        synchronized (clients) {
-            for (ShipClient client : clients) {
-                infos.add(this.createConnectionInfoSnapshot(client.getHandler(), ShipConnectionInfoSnapshot.ConnectionTypeEnum.CLIENT_CONNECTION_TO_PEER));
-            }
-        }
-
-        return infos;
+                this.clients.stream()
+                        .map(ShipClient::getHandler)
+                        .map(h -> this.createConnectionInfoSnapshot(h, CLIENT_CONNECTION_TO_PEER))
+        ).collect(Collectors.toList());
     }
 
     private ShipConnectionInfoSnapshot createConnectionInfoSnapshot(WebSocketHandler handler, ShipConnectionInfoSnapshot.ConnectionTypeEnum connectionType) {
