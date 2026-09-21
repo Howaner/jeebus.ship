@@ -35,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.net.InetSocketAddress;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.*;
@@ -64,6 +65,7 @@ public abstract class WebSocketHandler extends SimpleChannelInboundHandler<Objec
 
     protected final ByteArrayOutputStream messageBuffer
         = new ByteArrayOutputStream();
+    protected final Instant connectionStartDate = Instant.now();
 
     protected WebSocketHandler(ShipNodeContext nodeContext, ShipNodeImpl node) {
         super(false);
@@ -282,6 +284,10 @@ public abstract class WebSocketHandler extends SimpleChannelInboundHandler<Objec
         return this.connection;
     }
 
+    public Instant getConnectionStartDate() {
+        return this.connectionStartDate;
+    }
+
     public abstract void close();
 
     protected void notifyConnectionHandlerOnClose() {
@@ -316,7 +322,7 @@ public abstract class WebSocketHandler extends SimpleChannelInboundHandler<Objec
         }
 
         log.error(
-            "{} encountered exception:",
+            "{} encountered exception",
             nodeContext.getLogPrefix(),
             cause
         );
