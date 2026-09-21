@@ -282,6 +282,9 @@ public class Ship implements ShipInterface, AutoCloseable {
         return node.getServiceRegistry().getCurrentServices();
     }
 
+    /**
+     * @return a snapshot of the current SHIP connections.
+     */
     public List<ShipConnectionInfoSnapshot> getConnectionInfos() {
         if (node == null) {
             return new ArrayList<>();
