@@ -1,10 +1,14 @@
 # Changelog
 
-## [3.1.0] - 2026-09-21
+## [3.2.0] - 2026-09-21
 
 ### Added
 
 - Add `Ship#getConnectionInfos` to get a snapshot of all current SHIP connections
+
+## [3.1.0] - 2026-09-21
+
+_This release went wrong and does not contain any changes_
 
 ## [3.0.1] - 2026-09-09
 
