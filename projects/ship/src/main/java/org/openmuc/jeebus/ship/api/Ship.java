@@ -27,6 +27,7 @@ import javax.jmdns.ServiceInfo;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -279,6 +280,13 @@ public class Ship implements ShipInterface, AutoCloseable {
     public Set<ShipService> getCurrentServices() {
         assertNodeAvailable();
         return node.getServiceRegistry().getCurrentServices();
+    }
+
+    public List<ShipConnectionInfoSnapshot> getConnectionInfos() {
+        if (node == null) {
+            return new ArrayList<>();
+        }
+        return node.getConnectionInfos();
     }
 
     /**

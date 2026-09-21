@@ -12,15 +12,12 @@ package org.openmuc.jeebus.ship.node;
 
 import io.netty.handler.ssl.SslContext;
 import org.openmuc.jeebus.ship.api.ConnectionHandler;
+import org.openmuc.jeebus.ship.api.ShipConnectionInfoSnapshot;
 import org.openmuc.jeebus.ship.api.cert.CertificateStoreException;
-import org.openmuc.jeebus.ship.message.connectionclose.ConnectionCloseReasonType;
 import org.openmuc.jeebus.ship.node.service.ServiceRegistry;
 import org.openmuc.jeebus.ship.node.websocket.WebSocketHandler;
 import org.openmuc.jeebus.ship.node.websocket.client.ShipClient;
-import org.openmuc.jeebus.ship.node.websocket.client.ShipClientHandler;
 import org.openmuc.jeebus.ship.node.websocket.server.ShipServer;
-import org.openmuc.jeebus.ship.node.websocket.server.ShipServerHandler;
-import org.openmuc.jeebus.ship.shipconnection.ShipConnectionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +29,8 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.openmuc.jeebus.ship.api.ShipConnectionInfoSnapshot.ConnectionTypeEnum.CLIENT_CONNECTION_TO_PEER;
+import static org.openmuc.jeebus.ship.api.ShipConnectionInfoSnapshot.ConnectionTypeEnum.PEER_CONNECTED_TO_SERVER;
 import static org.openmuc.jeebus.ship.node.ShipNodeParameters.USER_VERIFIED_TRUST_LEVEL;
 
 public class ShipNodeImpl {
@@ -331,5 +330,29 @@ public class ShipNodeImpl {
 
     public String getOwnSki() {
         return keyManagement.getOwnSki();
+    }
+
+    public List<ShipConnectionInfoSnapshot> getConnectionInfos() {
+        return Stream.concat(
+                this.server.stream()
+                        .flatMap(s -> s.getHandlers().stream())
+                        .map(h -> this.createConnectionInfoSnapshot(h, PEER_CONNECTED_TO_SERVER)),
+
+                this.clients.stream()
+                        .map(ShipClient::getHandler)
+                        .map(h -> this.createConnectionInfoSnapshot(h, CLIENT_CONNECTION_TO_PEER))
+        ).collect(Collectors.toList());
+    }
+
+    private ShipConnectionInfoSnapshot createConnectionInfoSnapshot(WebSocketHandler handler, ShipConnectionInfoSnapshot.ConnectionTypeEnum connectionType) {
+        boolean isFullyEstablished = handler.getShipConnection() != null && handler.getShipConnection().getCde() != null;
+        return new ShipConnectionInfoSnapshot(
+                connectionType,
+                handler.getPeerSki(),
+                handler.getRemoteSocketAddress(),
+                handler.getTrustLevel(),
+                isFullyEstablished,
+                handler.getConnectionStartDate()
+        );
     }
 }
