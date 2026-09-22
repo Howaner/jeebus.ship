@@ -9,7 +9,7 @@
  ********************************************************************************/
 
 jar {
-    bnd('Export-Content': 'org.openmuc.jeebus.ship.api.*')
+    bnd('Export-Content': 'org.openmuc.jeebus.ship.api.*, org.openmuc.jeebus.ship.node.ShipConfig')
 }
 
 apply plugin: 'ca.cutterslade.analyze'
