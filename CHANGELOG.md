@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.2.1] - 2026-09-22
+
+### Fixed
+
+- Export `ShipConfig` in OSGi bundle
+
 ## [3.2.0] - 2026-09-21
 
 ### Added
