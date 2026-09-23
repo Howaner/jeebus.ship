@@ -54,6 +54,18 @@ public class Ship implements ShipInterface, AutoCloseable {
         node = new ShipNodeImpl(nodeConfig, connHandler);
     }
 
+    /**
+     * @deprecated since 3.2.2. Please use {@link Ship#Ship(ShipConfig, ConnectionHandler)}
+     *  as the ShipConfig will move to the API package.
+     */
+    @Deprecated(since = "3.2.2", forRemoval = true)
+    public Ship(
+        org.openmuc.jeebus.ship.node.ShipConfig nodeConfig,
+        ConnectionHandler connHandler
+    ) {
+        node = new ShipNodeImpl(nodeConfig, connHandler);
+    }
+
     @Override
     public ShipConnectionInterface openConnection(String ipAddr) {
         try {
