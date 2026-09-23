@@ -14,7 +14,6 @@ import org.bouncycastle.asn1.x500.X500Name;
 import org.openmuc.jeebus.ship.api.cert.CertificateStorage;
 import org.openmuc.jeebus.ship.api.cert.MemoryCertificateStorage;
 import org.openmuc.jeebus.ship.node.KeyManagement;
-import org.openmuc.jeebus.ship.node.ShipConfig;
 import org.openmuc.jeebus.ship.util.ShipUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -454,11 +453,7 @@ public final class ConfigBuilder {
      * </ul>
      *
      * @return the new {@link ShipConfig}
-     *
-     * @deprecated will return {@link org.openmuc.jeebus.ship.api.ShipConfig} in
-     *  future versions
      */
-    @Deprecated(since = "3.3.0")
     public ShipConfig build() {
         if (Stream.of(
             id,
