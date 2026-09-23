@@ -12,7 +12,7 @@ package org.openmuc.jeebus.ship.node.service;
 
 import org.openmuc.jeebus.ship.api.ConnectionHandler;
 import org.openmuc.jeebus.ship.api.ShipService;
-import org.openmuc.jeebus.ship.node.ShipConfig;
+import org.openmuc.jeebus.ship.api.ShipConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

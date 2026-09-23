@@ -12,6 +12,7 @@ package org.openmuc.jeebus.ship.node;
 
 import io.netty.handler.ssl.SslContext;
 import org.openmuc.jeebus.ship.api.ConnectionHandler;
+import org.openmuc.jeebus.ship.api.ShipConfig;
 import org.openmuc.jeebus.ship.api.ShipConnectionInfoSnapshot;
 import org.openmuc.jeebus.ship.api.cert.CertificateStoreException;
 import org.openmuc.jeebus.ship.node.service.ServiceRegistry;

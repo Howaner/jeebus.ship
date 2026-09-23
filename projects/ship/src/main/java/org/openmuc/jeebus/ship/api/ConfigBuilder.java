@@ -454,7 +454,11 @@ public final class ConfigBuilder {
      * </ul>
      *
      * @return the new {@link ShipConfig}
+     *
+     * @deprecated will return {@link org.openmuc.jeebus.ship.api.ShipConfig} in
+     *  future versions
      */
+    @Deprecated(since = "3.3.0")
     public ShipConfig build() {
         if (Stream.of(
             id,

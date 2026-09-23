@@ -11,7 +11,6 @@
 package org.openmuc.jeebus.ship.api;
 
 import org.openmuc.jeebus.ship.node.KeyManagement;
-import org.openmuc.jeebus.ship.node.ShipConfig;
 import org.openmuc.jeebus.ship.node.ShipNodeImpl;
 import org.openmuc.jeebus.ship.node.ShipNodeParameters;
 import org.openmuc.jeebus.ship.node.websocket.WebSocketHandler;

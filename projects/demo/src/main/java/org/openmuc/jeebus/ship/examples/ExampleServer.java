@@ -12,7 +12,6 @@ package org.openmuc.jeebus.ship.examples;
 
 import org.openmuc.jeebus.ship.api.*;
 import org.openmuc.jeebus.ship.message.MessageUtility;
-import org.openmuc.jeebus.ship.node.ShipConfig;
 
 import java.nio.charset.StandardCharsets;
 

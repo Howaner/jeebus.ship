@@ -10,6 +10,7 @@
 
 package org.openmuc.jeebus.ship.node;
 
+import org.openmuc.jeebus.ship.api.ShipConfig;
 import org.openmuc.jeebus.ship.node.service.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

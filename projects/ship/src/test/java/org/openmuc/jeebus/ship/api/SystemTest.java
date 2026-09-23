@@ -8,8 +8,9 @@
  * SPDX-License-Identifier: EPL-2.0
  ********************************************************************************/
 
-package org.openmuc.jeebus.ship.api; import org.junit.jupiter.api.*;
-import org.openmuc.jeebus.ship.node.ShipConfig;
+package org.openmuc.jeebus.ship.api;
+
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

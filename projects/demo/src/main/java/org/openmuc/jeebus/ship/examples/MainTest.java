@@ -11,7 +11,6 @@
 package org.openmuc.jeebus.ship.examples;
 
 import org.openmuc.jeebus.ship.api.*;
-import org.openmuc.jeebus.ship.node.ShipConfig;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -19,8 +18,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.slf4j.LoggerFactory.getLogger;
 

@@ -11,7 +11,6 @@
 package org.openmuc.jeebus.ship.examples;
 
 import org.openmuc.jeebus.ship.api.*;
-import org.openmuc.jeebus.ship.node.ShipConfig;
 import org.openmuc.jeebus.ship.util.ShipUtilities;
 
 import java.io.IOException;

@@ -12,12 +12,11 @@ package org.openmuc.jeebus.ship.node.service;
 
 import org.junit.jupiter.api.Test;
 import org.openmuc.jeebus.ship.api.ConfigBuilder;
+import org.openmuc.jeebus.ship.api.ShipConfig;
 import org.openmuc.jeebus.ship.api.ShipService;
-import org.openmuc.jeebus.ship.node.ShipConfig;
 import org.openmuc.jeebus.ship.util.ShipTestUtil;
 
 import javax.jmdns.ServiceInfo;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
