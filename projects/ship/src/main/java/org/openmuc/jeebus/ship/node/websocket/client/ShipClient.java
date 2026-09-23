@@ -38,7 +38,6 @@ import java.util.concurrent.CompletableFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openmuc.jeebus.ship.node.ShipNodeParameters.WSS_HANDSHAKE_TIMEOUT;
-import static org.openmuc.jeebus.ship.util.ShipUtilities.toCompletableFuture;
 
 public class ShipClient {
     private static final Logger log = LoggerFactory.getLogger(ShipClient.class);
@@ -173,6 +172,20 @@ public class ShipClient {
 
     public void setConnHandler(ConnectionHandler connHandler) {
         nodeContext.setConnHandler(connHandler);
+    }
+
+    private static CompletableFuture<Channel> toCompletableFuture(ChannelFuture channelFuture) {
+        CompletableFuture<Channel> completableFuture = new CompletableFuture<>();
+
+        channelFuture.addListener((ChannelFutureListener) future -> {
+            if (future.isSuccess()) {
+                completableFuture.complete(future.channel());
+            } else {
+                completableFuture.completeExceptionally(future.cause());
+            }
+        });
+
+        return completableFuture;
     }
 
 }
