@@ -343,10 +343,14 @@ public class ShipNodeImpl {
                 this.clients.stream()
                         .map(ShipClient::getHandler)
                         .map(h -> this.createConnectionInfoSnapshot(h, CLIENT_CONNECTION_TO_PEER))
-        ).collect(Collectors.toList());
+        ).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     private ShipConnectionInfoSnapshot createConnectionInfoSnapshot(WebSocketHandler handler, ShipConnectionInfoSnapshot.ConnectionTypeEnum connectionType) {
+        if (!handler.isChannelInitialized()) {
+            return null;
+        }
+
         boolean isFullyEstablished = handler.getShipConnection() != null && handler.getShipConnection().getCde() != null;
         String ski;
         try {
