@@ -165,8 +165,6 @@ public abstract class WebSocketHandler extends SimpleChannelInboundHandler<Objec
                 .getTrustLevel();
         }
 
-        log.info("Trust level of device with SKI {} is {}.", peerSki, trustLevel);
-
         return trustLevel;
     }
 

@@ -75,7 +75,9 @@ public class ShipClientHandler extends WebSocketHandler {
             try {
                 handshaker.finishHandshake(channel, (FullHttpResponse) msg);
 
-                if (!areWeClosingDoubleConnection(getPeerSki())) {
+                String peerSki = getPeerSki();
+
+                if (!areWeClosingDoubleConnection(peerSki)) {
 
                     log.info(
                         "{} ({}) connected to remote server ({})",
@@ -88,9 +90,17 @@ public class ShipClientHandler extends WebSocketHandler {
                     );
                     handshakeFuture.setSuccess();
 
+                    int trustLevel = getTrustLevel();
+
+                    log.info(
+                        "Trust level of device with SKI {} is {}.",
+                        peerSki,
+                        trustLevel
+                    );
+
                     this.connection = new ShipConnectionImpl(
                         CLIENT,
-                        getTrustLevel(),
+                        trustLevel,
                         nodeContext,
                         this
                     );

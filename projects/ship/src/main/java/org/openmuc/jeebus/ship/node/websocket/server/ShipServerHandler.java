@@ -149,10 +149,21 @@ public class ShipServerHandler extends WebSocketHandler {
         else {
             handshaker.handshake(ctx.channel(), req).awaitUninterruptibly();
 
-            if (!areWeClosingDoubleConnection(this.getPeerSki())) {
+            String peerSki = this.getPeerSki();
+
+            if (!areWeClosingDoubleConnection(peerSki)) {
+
+                int trustLevel = getTrustLevel();
+
+                log.info(
+                    "Trust level of device with SKI {} is {}.",
+                    peerSki,
+                    trustLevel
+                );
+
                 connection = new ShipConnectionImpl(
                     SERVER,
-                    getTrustLevel(),
+                    trustLevel,
                     nodeContext,
                     this
                 );
