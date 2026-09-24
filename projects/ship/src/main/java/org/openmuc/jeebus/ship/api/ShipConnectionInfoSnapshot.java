@@ -47,8 +47,9 @@ public class ShipConnectionInfoSnapshot {
     /**
      * Returns the SKI (Subject Key Identifier) of the remote partner. The SKI is a
      * unique identifier for the public key of the remote partner.
+     * Can be null if the tls handshake is not done yet.
      *
-     * @return SKI String
+     * @return SKI String, or null
      */
     public String getSki() {
         return this.ski;
