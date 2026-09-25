@@ -357,8 +357,7 @@ public class ShipNodeImpl {
             ski = handler.getPeerSki();
         } catch (ShipAuthenticationException e) {
             // This exception here means that the SKI is not available yet - most likely the tls handshake is not finished yet.
-            // But the connection still exists, so we can still create a snapshot with the connection info we have, but leave the ski null.
-            ski = null;
+            return null;
         }
 
         return new ShipConnectionInfoSnapshot(
